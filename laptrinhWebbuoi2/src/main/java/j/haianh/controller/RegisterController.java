@@ -2,6 +2,7 @@ package j.haianh.controller;
 
 import java.io.IOException;
 
+import j.haianh.models.User;
 import j.haianh.service.userService;
 import j.haianh.serviceImpl.userServiceImpl;
 import j.haianh.utils.constant.constant;
@@ -17,8 +18,7 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet(urlPatterns = "/register")
 public class RegisterController extends HttpServlet {
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException 
-	{
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
 		if (session != null && session.getAttribute("username") != null) {
 			resp.sendRedirect(req.getContextPath() + "/admin");
@@ -26,21 +26,21 @@ public class RegisterController extends HttpServlet {
 		}
 		Cookie[] cookies = req.getCookies();
 		if (cookies != null) {
-		for (Cookie cookie : cookies) {
-		 if (cookie.getName().equals("username")) {
-		session = req.getSession(true);
-		session.setAttribute("username", cookie.getValue());
-		resp.sendRedirect(req.getContextPath() + "/admin");
-		return;
-		 }
-		}
+			for (Cookie cookie : cookies) {
+				if (cookie.getName().equals("username")) {
+					session = req.getSession(true);
+					session.setAttribute("username", cookie.getValue());
+					resp.sendRedirect(req.getContextPath() + "/admin");
+					return;
+				}
+			}
 		}
 		req.getRequestDispatcher(constant.Path.REGISTER).forward(req, resp);
-		}
+	}
+
 	@SuppressWarnings("static-access")
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException 
-	{
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setCharacterEncoding("UTF-8");
 		req.setCharacterEncoding("UTF-8");
 		String username = req.getParameter("username");
@@ -48,10 +48,11 @@ public class RegisterController extends HttpServlet {
 		String email = req.getParameter("email");
 		String fullname = req.getParameter("fullname");
 		String phone = req.getParameter("phone");
+		String code = req.getParameter("code");
 		
 		userService service = new userServiceImpl();
-		String alertMsg ="";
-		
+		String alertMsg = "";
+
 		if (service.checkExistEmail(email)) {
 			alertMsg = "Email đã tồn tại!";
 			req.setAttribute("alert", alertMsg);
@@ -59,18 +60,21 @@ public class RegisterController extends HttpServlet {
 			return;
 		}
 		if (service.checkExistUsername(username)) {
-			alertMsg =
-					"Tài khoản đã tồn tại!";
+			alertMsg = "Tài khoản đã tồn tại!";
 			req.setAttribute("alert", alertMsg);
 			req.getRequestDispatcher(constant.Path.REGISTER).forward(req, resp);
 			return;
-			}
+		}
+		User user=new User(username, password, email, fullname, code);
 		
-		boolean isSuccess = service.register(username, password, email, fullname,
-				phone);
+		HttpSession session=req.getSession();
+		session.setAttribute("account", user);
+
+		boolean isSuccess = service.register(username, password, email, fullname, phone, code);
 		if (isSuccess) {
-			//SendMail sm = new SendMail();
-			//sm.sendMail(email, "Shopping.iotstar.vn", "Welcome to Shopping. Please Loginto use service. Thanks !");
+			// SendMail sm = new SendMail();
+			// sm.sendMail(email, "Shopping.iotstar.vn", "Welcome to Shopping. Please
+			// Loginto use service. Thanks !");
 			req.setAttribute("alert", alertMsg);
 			resp.sendRedirect(req.getContextPath() + "/login");
 		} else {
@@ -80,7 +84,4 @@ public class RegisterController extends HttpServlet {
 		}
 	}
 
-	
-	
 }
-

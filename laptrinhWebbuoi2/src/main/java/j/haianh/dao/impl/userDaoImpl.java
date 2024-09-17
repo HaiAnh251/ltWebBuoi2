@@ -9,178 +9,187 @@ import java.util.List;
 import j.haianh.configs.DBConnectMySQL;
 import j.haianh.dao.IuserDao;
 import j.haianh.models.User;
-import j.haianh.models.userModels;
 
-public class userDaoImpl extends DBConnectMySQL implements IuserDao 
-{
-	
-	
-	public Connection conn=null;
-	public PreparedStatement ps =null;
-	public ResultSet rs=null;
-	
+public class userDaoImpl extends DBConnectMySQL implements IuserDao {
+
+	public Connection conn = null;
+	public PreparedStatement ps = null;
+	public ResultSet rs = null;
 
 	@Override
-	public List<userModels> findAll() {
-		String sql="select * from user";
-		List<userModels> list =new ArrayList<>();//list de truyen du lieu
+	public List<User> findAll() {
+		String sql = "select * from user";
+		List<User> list = new ArrayList<>();// list de truyen du lieu
 		try {
-			conn =super.getConnection();//ket noi database
-			ps=conn.prepareStatement(sql);
-			rs=ps.executeQuery();
-			
-			while(rs.next())
-			{
-				list.add(new userModels(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getString("email"), rs.getString("fullname"), rs.getString("image")));
+			conn = super.getConnection();// ket noi database
+			ps = conn.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				list.add((new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"),
+						rs.getString("email"), rs.getString("fullname"), rs.getString("image"), rs.getInt("roleid"),
+						rs.getString("phone"), rs.getDate("createdate"), rs.getString("code"))));
 			}
 			return list;
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
+
 		return null;
 	}
-
-	
 
 	@Override
 	public void insert(User user) {
-		String sql ="INSERT INTO `ltwebbuoi2`.`user` (`id`, `username`, `email`, `fullname`, `avatar`, `password`,'roleid','phone') VALUES (?, ?, ?, ?, ?, ?,?,?)";
-		try 
-		{
-			conn =super.getConnection();
-			ps=conn.prepareStatement(sql);
+		String sql = "INSERT INTO `ltwebbuoi2`.`user` (`id`, `username`, `password`,`email`, `fullname`, `image`, ,'roleid','phone','createdate') VALUES (?, ?, ?, ?, ?, ?,?,?,?)";
+		try {
+			conn = super.getConnection();
+			ps = conn.prepareStatement(sql);
 			ps.setInt(1, user.getId());
 			ps.setString(2, user.getUserName());
-			ps.setString(3, user.getEmail());
-			ps.setString(4, user.getFullName());
-			ps.setString(5, user.getAvatar());
-			ps.setString(6, user.getPassWord());
-			ps.setString(7, user.getPhone());
-			
-					
+			ps.setString(3, user.getPassWord());
+			ps.setString(4, user.getEmail());
+			ps.setString(5, user.getFullName());
+			ps.setString(6, user.getImage());
+			ps.setInt(7, user.getRoleid());
+
+			ps.setString(8, user.getPhone());
+			ps.setDate(9, user.getCreatedate());
+
 			ps.executeUpdate();
-		}catch(Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 	}
-	
+
 	public static void main(String[] args) {
-		userDaoImpl userDao=new userDaoImpl();
-		List<userModels> list=userDao.findAll();
-	//	List<userModels> list1=userDao.findById(126);
-		for(userModels user:list)
-		{
-			System.out.println(user);
+		try {
+			IuserDao userDao = new userDaoImpl();
+			System.out.println(userDao.findAll());
+			// System.out.println(userDao.findById(1));
+			// System.out.println(userDao.findByName("haianh"));
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
+	public User findById(int id) {
+		String sql = "SELECT* FROM user WHERE id=?";
 
-
-	public List<userModels> findById (int id) 
-	{
-		String sql="SELECT* FROM user WHERE id=?";
-		List<userModels> list =new ArrayList<userModels>();
 		try {
-			conn=super.getConnection();
-			ps=conn.prepareStatement(sql);
+			conn = super.getConnection();
+			ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
-			rs=ps.executeQuery();
-			
-			while(rs.next())
-			{
-				userModels model1=new userModels();
-				list.add(new userModels(model1.getId(), rs.getString("username"), rs.getString("password"), rs.getString("email"), rs.getString("fullname"), rs.getString("image")));
-			}
-			return list;
+			rs = ps.executeQuery();
 
-		}catch (Exception e)
-		{
+			while (rs.next()) {
+				User user = new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"),
+						rs.getString("email"), rs.getString("fullname"), rs.getString("image"), rs.getInt("roleid"),
+						rs.getString("phone"), rs.getDate("createdate"), rs.getString("code"));
+
+				return user;
+
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-
-
 
 	@Override
-	public List<userModels> findByName(String username) {
-		String sql="SELECT* FROM user WHERE username=?";
-		List<userModels> list =new ArrayList<userModels>();
+	public User findByName(String username) {
+		String sql = "SELECT* FROM user WHERE username=?";
 		try {
-			conn=super.getConnection();
-			ps=conn.prepareStatement(sql);
+			conn = super.getConnection();
+			ps = conn.prepareStatement(sql);
 			ps.setString(1, username);
-			rs=ps.executeQuery();
-			
-			while(rs.next())
-			{
-				userModels model1=new userModels();
-				list.add(new userModels(model1.getId(), rs.getString("username"), rs.getString("password"), rs.getString("email"), rs.getString("fullname"), rs.getString("image")));
-			}
-			return list;
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				User user = new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"),
+						rs.getString("email"), rs.getString("fullname"), rs.getString("image"), rs.getInt("roleid"),
+						rs.getString("phone"), rs.getDate("createdate"), rs.getString("code"));
+				return user;
 
-		}catch (Exception e)
-		{
+			}
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-
-
 
 	@Override
 	public boolean checkExistUsername(String username) {
 		boolean duplicate = false;
-		String query = "select * from [User] where username = ?";
+		String query = "select * from user where username = ?";
 		try {
-		conn = new DBConnectMySQL().getConnection();
-		ps = conn.prepareStatement(query);
-		ps.setString(1, username);
-		rs = ps.executeQuery();
-		if (rs.next()) {
-		duplicate = true;
+			conn = new DBConnectMySQL().getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, username);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				duplicate = true;
+			}
+			ps.close();
+			conn.close();
+		} catch (Exception ex) {
 		}
-		ps.close();
-		conn.close();
-		} catch (Exception ex) {}
 		return duplicate;
 	}
-
-
 
 	@Override
 	public boolean checkExistEmail(String email) {
 		boolean duplicate = false;
-		String query = "select * from [user] where email = ?";
+		String query = "select * from user where email = ?";
 		try {
-		conn = new DBConnectMySQL().getConnection();
-		ps = conn.prepareStatement(query);
-		ps.setString(1, email);
-		rs = ps.executeQuery();
-		if (rs.next()) {
-		duplicate = true;
+			conn = new DBConnectMySQL().getConnection();
+			ps = conn.prepareStatement(query);
+			ps.setString(1, email);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				duplicate = true;
+			}
+			ps.close();
+			conn.close();
+		} catch (Exception ex) {
 		}
-		ps.close();
-		conn.close();
-		} catch (Exception ex) {}
 		return duplicate;
-		
+
 	}
-
-
 
 	@Override
 	public boolean checkExistPhone(String phone) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public void insertregister(User user) {
+		String sql = "INSERT INTO `ltwebbuoi2`.`user` ( `username`, `password`,`email`, `fullname` ,'roleid','code') VALUES (?, ?, ?, ?, ?, ?)";
+		try {
+			conn = super.getConnection();
+			ps = conn.prepareStatement(sql);
+
+			ps.setString(1, user.getUserName());
+			ps.setString(2, user.getPassWord());
+			ps.setString(3, user.getEmail());
+			ps.setString(4, user.getFullName());
+
+			ps.setInt(5, user.getRoleid());
+			ps.setString(6, user.getCode());
+
+			ps.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	@Override
+	public void update(User user) {
+		// TODO Auto-generated method stub
+
 	}
 
 }
