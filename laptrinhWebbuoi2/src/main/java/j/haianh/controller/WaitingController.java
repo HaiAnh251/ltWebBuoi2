@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = "/waiting")
+@WebServlet(urlPatterns = "/views/waiting")
 public class WaitingController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -19,9 +19,9 @@ public class WaitingController extends HttpServlet {
 		if (session != null && session.getAttribute("account") != null) {
 			User u = (User) session.getAttribute("account");
 			req.setAttribute("username", u.getUserName());
-			if (u.getRoleid() == 1) {
+			if (u.getRoleid() == 2) {
 				resp.sendRedirect(req.getContextPath() + "/admin/home");
-			} else if (u.getRoleid() == 2) {
+			} else if (u.getRoleid() == 3) {
 				resp.sendRedirect(req.getContextPath() + "/manager/home");
 			} else {
 				resp.sendRedirect(req.getContextPath() + "/home");

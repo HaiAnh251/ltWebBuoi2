@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = { "/login" })
+@WebServlet(urlPatterns = { "/views/login" })
 public class LoginController extends HttpServlet {
 	userService service = new userServiceImpl();
 

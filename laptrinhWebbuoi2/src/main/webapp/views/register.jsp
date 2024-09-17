@@ -67,7 +67,7 @@
 <body>
     <div class="main">
         <h2>Đăng kí</h2>
-        <form action="register" methods="post">
+        <form action="/laptrinhWebbuoi2/register" method="post">
             <label for="first">Tên đăng nhập: </label>
             <input type="text" id="username" name="username" required />
 
@@ -92,7 +92,7 @@
                 Submit
             </button>
             
-            <p>Đã có tài khoản? <a href="/login">Đăng nhập</a></p>
+            <p>Đã có tài khoản? <a href="${pageContext.request.contextPath }/login">Đăng nhập</a></p>
         </form>
     </div>
 </body>

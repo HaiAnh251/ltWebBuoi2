@@ -24,4 +24,6 @@ public interface IuserDao {
 
 	boolean checkExistPhone(String phone);
 
+	void update(String email, String password);
+
 }

@@ -15,7 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
 @SuppressWarnings("serial")
-@WebServlet(urlPatterns = "/register")
+@WebServlet(urlPatterns = "/views/register")
 public class RegisterController extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -76,7 +76,7 @@ public class RegisterController extends HttpServlet {
 			// sm.sendMail(email, "Shopping.iotstar.vn", "Welcome to Shopping. Please
 			// Loginto use service. Thanks !");
 			req.setAttribute("alert", alertMsg);
-			resp.sendRedirect(req.getContextPath() + "/login");
+			resp.sendRedirect(req.getContextPath() + "/views/login.jsp");
 		} else {
 			alertMsg = "System error!";
 			req.setAttribute("alert", alertMsg);

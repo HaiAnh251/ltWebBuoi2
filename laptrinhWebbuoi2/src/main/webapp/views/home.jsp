@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	Trang chủ của user
+<a href="/laptrinhWebbuoi2/logout">Đăng xuất</a>
+	<h1>Trang chủ của user</h1>
 </body>
 </html>

@@ -8,8 +8,8 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = { "/admin/home" })
-public class HomeController extends HttpServlet {
+@WebServlet(urlPatterns = { "/views/admin" })
+public class AdminController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
@@ -18,3 +18,4 @@ public class HomeController extends HttpServlet {
 		req.getRequestDispatcher("/views/admin/home.jsp").forward(req, resp);
 	}
 }
+

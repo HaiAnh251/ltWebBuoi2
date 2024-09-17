@@ -8,7 +8,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = "/manager/home")
+@WebServlet(urlPatterns = "/views/manager/home")
 public class ManagerController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;

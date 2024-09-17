@@ -18,5 +18,6 @@ public interface userService {
 	boolean checkExistPhone(String phone);
 
 	boolean insertregister(String email, String password, String username, String fullname, String code);
+	void updatePassword(String password, String email);
 
 }

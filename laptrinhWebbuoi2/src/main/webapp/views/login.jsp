@@ -88,8 +88,12 @@
 	</div>
 	
 	<div class="form-group">
-		<input type="text" name="password" required>
+		<input type="password" name="password" required>
 		<label for="">Password</label>
+	</div>
+	
+	<div class="forgotpass"> 
+	<a href="/laptrinhWebbuoi2/views/forgotpass">Forgot your password?</a>
 	</div>
 	
 	<input type="submit" value="submit" id="btn-login">
