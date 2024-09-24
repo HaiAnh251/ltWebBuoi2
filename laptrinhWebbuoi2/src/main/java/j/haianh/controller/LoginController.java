@@ -23,7 +23,7 @@ public class LoginController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
 		if (session != null && session.getAttribute("account") != null) {
-			resp.sendRedirect(req.getContextPath() + "/waiting");
+			resp.sendRedirect(req.getContextPath() + "/views/waiting");
 			return;
 		}
 		Cookie[] cookies = req.getCookies();
@@ -32,7 +32,7 @@ public class LoginController extends HttpServlet {
 				if (cookie.getName().equals("username")) {
 					session = req.getSession(true);
 					session.setAttribute("username", cookie.getValue());
-					resp.sendRedirect(req.getContextPath() + "/waiting");
+					resp.sendRedirect(req.getContextPath() + "/views/waiting");
 					return;
 				}
 			}
@@ -71,7 +71,7 @@ public class LoginController extends HttpServlet {
 				saveRememberMe(resp, username);
 			}
 
-			resp.sendRedirect(req.getContextPath() + "/waiting");
+			resp.sendRedirect(req.getContextPath() + "/views/waiting");
 		} else {
 			alertMsg = "Tài khoản hoặc mật khẩu không đúng";
 			req.setAttribute("alert", alertMsg);

@@ -40,20 +40,19 @@ public class userDaoImpl extends DBConnectMySQL implements IuserDao {
 
 	@Override
 	public void insert(User user) {
-		String sql = "INSERT INTO `ltwebbuoi2`.`user` (`id`, `username`, `password`,`email`, `fullname`, `image`, ,'roleid','phone','createdate') VALUES (?, ?, ?, ?, ?, ?,?,?,?)";
+		String sql = "insert into ltweb.user (username,fullname,password,email,phone) values (?,?,?,?,?)";
 		try {
 			conn = super.getConnection();
 			ps = conn.prepareStatement(sql);
-			ps.setInt(1, user.getId());
-			ps.setString(2, user.getUserName());
+			
+			ps.setString(1, user.getUserName());
+			ps.setString(2, user.getFullName());
 			ps.setString(3, user.getPassWord());
 			ps.setString(4, user.getEmail());
-			ps.setString(5, user.getFullName());
-			ps.setString(6, user.getImage());
-			ps.setInt(7, user.getRoleid());
+			
 
-			ps.setString(8, user.getPhone());
-			ps.setDate(9, user.getCreatedate());
+			ps.setString(5, user.getPhone());
+			
 
 			ps.executeUpdate();
 		} catch (Exception e) {
@@ -164,27 +163,7 @@ public class userDaoImpl extends DBConnectMySQL implements IuserDao {
 		return false;
 	}
 
-	@Override
-	public void insertregister(User user) {
-		String sql = "INSERT INTO `ltwebbuoi2`.`user` ( `username`, `password`,`email`, `fullname` ,'roleid','code') VALUES (?, ?, ?, ?, ?, ?)";
-		try {
-			conn = super.getConnection();
-			ps = conn.prepareStatement(sql);
 
-			ps.setString(1, user.getUserName());
-			ps.setString(2, user.getPassWord());
-			ps.setString(3, user.getEmail());
-			ps.setString(4, user.getFullName());
-
-			ps.setInt(5, user.getRoleid());
-			ps.setString(6, user.getCode());
-
-			ps.executeUpdate();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
 
 	@Override
 	public void update(User user) {

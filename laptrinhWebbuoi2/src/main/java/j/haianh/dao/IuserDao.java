@@ -14,7 +14,7 @@ public interface IuserDao {
 
 	void insert(User user);
 
-	void insertregister(User user);
+
 
 	void update(User user);
 

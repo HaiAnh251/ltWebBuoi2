@@ -20,6 +20,19 @@ public class User implements Serializable {
 	private String phone;
 	private Date createdate;
 	private String code;
+	public User(String userName, String passWord, String email, String fullName, String phone, String code) {
+		super();
+		this.userName = userName;
+		this.passWord = passWord;
+		this.email = email;
+		this.fullName = fullName;
+		this.phone = phone;
+		this.code = code;
+	}
+
+
+
+
 	public User(int id, String userName, String passWord, String email, String fullName, String image, int roleid,
 			String phone, Date createdate, String code) {
 		super();

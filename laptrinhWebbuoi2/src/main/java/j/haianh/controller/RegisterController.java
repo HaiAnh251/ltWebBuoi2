@@ -21,16 +21,25 @@ public class RegisterController extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
 		if (session != null && session.getAttribute("username") != null) {
-			resp.sendRedirect(req.getContextPath() + "/admin");
-			return;
+			User u = (User) session.getAttribute("account");
+			req.setAttribute("username", u.getUserName());
+			if (u.getRoleid() == 2) {
+				resp.sendRedirect(req.getContextPath() + "/views/admin/home.jsp");
+			} else if (u.getRoleid() == 3) {
+				resp.sendRedirect(req.getContextPath() + "/views/manager/home.jsp");
+			} else {
+				resp.sendRedirect(req.getContextPath() + "/views/home.jsp");
+			}
+			
 		}
+		
 		Cookie[] cookies = req.getCookies();
 		if (cookies != null) {
 			for (Cookie cookie : cookies) {
 				if (cookie.getName().equals("username")) {
 					session = req.getSession(true);
 					session.setAttribute("username", cookie.getValue());
-					resp.sendRedirect(req.getContextPath() + "/admin");
+					resp.sendRedirect(req.getContextPath() + "/views/waiting");
 					return;
 				}
 			}
@@ -76,7 +85,7 @@ public class RegisterController extends HttpServlet {
 			// sm.sendMail(email, "Shopping.iotstar.vn", "Welcome to Shopping. Please
 			// Loginto use service. Thanks !");
 			req.setAttribute("alert", alertMsg);
-			resp.sendRedirect(req.getContextPath() + "/views/login.jsp");
+			resp.sendRedirect(req.getContextPath() + "/views/register.jsp");
 		} else {
 			alertMsg = "System error!";
 			req.setAttribute("alert", alertMsg);

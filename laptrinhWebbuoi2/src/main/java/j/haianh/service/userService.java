@@ -9,7 +9,7 @@ public interface userService {
 
 	void insert(User user);
 
-	boolean register(String email, String password, String username, String fullname, String phone, String code);
+	boolean register(String username, String fullname, String email, String password, String phone, String code);
 
 	boolean checkExistEmail(String email);
 
@@ -17,7 +17,7 @@ public interface userService {
 
 	boolean checkExistPhone(String phone);
 
-	boolean insertregister(String email, String password, String username, String fullname, String code);
+	
 	void updatePassword(String password, String email);
 
 }

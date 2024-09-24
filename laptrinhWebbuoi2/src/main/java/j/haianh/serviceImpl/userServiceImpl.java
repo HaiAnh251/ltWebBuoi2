@@ -55,7 +55,7 @@ public class userServiceImpl implements userService {
 	}
 
 	@Override
-	public boolean register(String email, String password, String username, String fullname, String phone,String code) {
+	public boolean register(String username, String fullname, String password, String email, String phone,String code) {
 		if(userDao.checkExistEmail(email))
 		{
 			return false;
@@ -67,16 +67,13 @@ public class userServiceImpl implements userService {
 			}
 			long millis=System.currentTimeMillis();
 			java.sql.Date date=new java.sql.Date(millis);
-			userDao.insert(new User(username,email,fullname,password,0,code));
+			userDao.insert(new User(username,fullname,password,email,phone,code));
 			return true;
 
 	}
 
-	@Override
-	public boolean insertregister(String email, String password, String username, String fullname, String code) {
-		// TODO Auto-generated method stub
-		return false;
-	}
+	
+	
 
 	public String RandomPassword() {
 	    int leftLimit = 48; // numeral '0'
