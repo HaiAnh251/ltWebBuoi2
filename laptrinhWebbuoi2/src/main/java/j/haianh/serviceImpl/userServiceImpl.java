@@ -92,7 +92,9 @@ public class userServiceImpl implements userService {
 	@Override
 	public void updatePassword(String password, String email) {
 		// TODO Auto-generated method stub
-		userDao.update(email,password);
+		
 	}
+
+
 
 }

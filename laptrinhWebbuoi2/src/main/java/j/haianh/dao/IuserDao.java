@@ -16,14 +16,16 @@ public interface IuserDao {
 
 
 
-	void update(User user);
+	
 
 	boolean checkExistUsername(String username);
 
 	boolean checkExistEmail(String email);
 
 	boolean checkExistPhone(String phone);
+	
+	boolean update(User user);
 
-	void update(String email, String password);
+	
 
 }

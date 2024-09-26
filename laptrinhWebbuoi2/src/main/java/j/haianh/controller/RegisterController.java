@@ -85,7 +85,7 @@ public class RegisterController extends HttpServlet {
 			// sm.sendMail(email, "Shopping.iotstar.vn", "Welcome to Shopping. Please
 			// Loginto use service. Thanks !");
 			req.setAttribute("alert", alertMsg);
-			resp.sendRedirect(req.getContextPath() + "/views/register.jsp");
+			resp.sendRedirect(req.getContextPath() + "/views/login.jsp");
 		} else {
 			alertMsg = "System error!";
 			req.setAttribute("alert", alertMsg);
