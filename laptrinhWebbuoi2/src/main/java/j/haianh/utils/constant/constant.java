@@ -8,7 +8,7 @@ public class constant {
 		public static final String REGISTER = "/views/register.jsp";
 	}
 	
-	public static final String UPLOAD_DIRECTORY = "E:\\upload";
+	public static final String UPLOAD_DIRECTORY = "D:\\upload";
 
 
 	 public static final String DEFAULT_FILENAME = "default.file";

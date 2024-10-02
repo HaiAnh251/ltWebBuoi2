@@ -36,6 +36,7 @@
                         <li><a href="/laptrinhWebbuoi2/views/update">My Account</a></li>
                         <li><a href="shop-wishlist.html">My Wishlist</a></li>
                         <li><a href="shop-checkout.html">Checkout</a></li>
+                         
 					<li>
 					<c:choose>
 							<c:when test="${sessionScope.account == null}">

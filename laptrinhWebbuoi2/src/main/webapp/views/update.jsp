@@ -5,12 +5,20 @@
 <%@ taglib prefix="fn" uri="jakarta.tags.functions"  %>
 
 
+<div>Servlet Multipart</div>
 
+
+<form method="post" action="update" enctype="multipart/form-data">
+
+
+Choose a file: <input type="file" name="multiPartServlet"/>
+<input type="submit" value="Upload"/>
+</form>
 
 
 
  <!-- BEGIN CONTENT -->
-          <div class="col-md-12 col-sm-12">
+ <!--         <div class="col-md-12 col-sm-12">
           
             <div class="content-form-page">
               <div class="row">
@@ -18,7 +26,7 @@
                 <c:if test="${alert !=null }">
 			<h2 class="alert alert danger">${alert}</h2>
 		</c:if>
-                  <form  action="${pageContext.request.contextPath }/views/update" method="post" class="form-horizontal form-without-legend" role="form">
+                  <form  action="${pageContext.request.contextPath }/views/update" method="post" class="form-horizontal form-without-legend" role="form" enctype="multipart/form-data" >
                     <div class="form-group">
                       <label for="fullname" class="col-lg-4 control-label">Fullname <span class="require">*</span></label>
                       <div class="col-lg-8">
@@ -44,6 +52,12 @@
                         
                       </div>
                     </div>
+                    
+                    <div>
+						<input type="file" name="multiPartServlet" /> 
+						<input type="submit" value="Upload" />
+					</div>
+                    
                   </form>
                 </div>
                 <div class="col-md-4 col-sm-4 pull-right">
@@ -56,7 +70,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div> -->
           <!-- END CONTENT -->
 
 
